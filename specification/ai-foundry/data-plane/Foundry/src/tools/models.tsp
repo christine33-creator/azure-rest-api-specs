@@ -18,6 +18,7 @@ namespace Azure.AI.Projects {
     sharepoint_grounding_preview: "sharepoint_grounding_preview",
     memory_search_preview: "memory_search_preview",
     work_iq_preview: "work_iq_preview",
+    tool_search_preview: "tool_search_preview",
   }
 
   // General availability tools:
@@ -65,19 +66,17 @@ namespace Azure.AI.Projects {
     pinned?: string[];
   }
 
+  // Add defer to each OpenAI tool individually (per-tool approach).
+  // This allows ToolSearchTool to extend Tool without inheriting defer.
+
   #suppress "@azure-tools/typespec-azure-core/experimental-feature" "Using experimental feature"
-  @@copyProperties(OpenAI.Tool,
+  @@copyProperties(OpenAI.MCPTool,
     {
       /**
        * Deferral settings for this tool when tool search is enabled.
        */
       defer?: ToolDeferConfig,
-    }
-  );
 
-  #suppress "@azure-tools/typespec-azure-core/experimental-feature" "Using experimental feature"
-  @@copyProperties(OpenAI.MCPTool,
-    {
       /**
        * The connection ID in the project for the MCP server. The connection stores authentication and other connection details needed to connect to the MCP server.
        */
@@ -88,6 +87,11 @@ namespace Azure.AI.Projects {
   #suppress "@azure-tools/typespec-azure-core/experimental-feature" "Using experimental feature"
   @@copyProperties(OpenAI.WebSearchTool,
     {
+      /**
+       * Deferral settings for this tool when tool search is enabled.
+       */
+      defer?: ToolDeferConfig,
+
       ...ToolNameAndDescriptionExtension,
 
       /**
@@ -101,6 +105,11 @@ namespace Azure.AI.Projects {
   #suppress "@azure-tools/typespec-azure-core/experimental-feature" "Using experimental feature"
   @@copyProperties(OpenAI.CodeInterpreterTool,
     {
+      /**
+       * Deferral settings for this tool when tool search is enabled.
+       */
+      defer?: ToolDeferConfig,
+
       ...ToolNameAndDescriptionExtension,
     }
   );
@@ -108,6 +117,11 @@ namespace Azure.AI.Projects {
   #suppress "@azure-tools/typespec-azure-core/experimental-feature" "Using experimental feature"
   @@copyProperties(OpenAI.ImageGenTool,
     {
+      /**
+       * Deferral settings for this tool when tool search is enabled.
+       */
+      defer?: ToolDeferConfig,
+
       ...ToolNameAndDescriptionExtension,
     }
   );
@@ -115,6 +129,11 @@ namespace Azure.AI.Projects {
   #suppress "@azure-tools/typespec-azure-core/experimental-feature" "Using experimental feature"
   @@copyProperties(OpenAI.LocalShellToolParam,
     {
+      /**
+       * Deferral settings for this tool when tool search is enabled.
+       */
+      defer?: ToolDeferConfig,
+
       ...ToolNameAndDescriptionExtension,
     }
   );
@@ -122,6 +141,11 @@ namespace Azure.AI.Projects {
   #suppress "@azure-tools/typespec-azure-core/experimental-feature" "Using experimental feature"
   @@copyProperties(OpenAI.FunctionShellToolParam,
     {
+      /**
+       * Deferral settings for this tool when tool search is enabled.
+       */
+      defer?: ToolDeferConfig,
+
       ...ToolNameAndDescriptionExtension,
     }
   );
@@ -129,7 +153,42 @@ namespace Azure.AI.Projects {
   #suppress "@azure-tools/typespec-azure-core/experimental-feature" "Using experimental feature"
   @@copyProperties(OpenAI.FileSearchTool,
     {
+      /**
+       * Deferral settings for this tool when tool search is enabled.
+       */
+      defer?: ToolDeferConfig,
+
       ...ToolNameAndDescriptionExtension,
+    }
+  );
+
+  #suppress "@azure-tools/typespec-azure-core/experimental-feature" "Using experimental feature"
+  @@copyProperties(OpenAI.FunctionTool,
+    {
+      /**
+       * Deferral settings for this tool when tool search is enabled.
+       */
+      defer?: ToolDeferConfig,
+    }
+  );
+
+  #suppress "@azure-tools/typespec-azure-core/experimental-feature" "Using experimental feature"
+  @@copyProperties(OpenAI.ComputerUsePreviewTool,
+    {
+      /**
+       * Deferral settings for this tool when tool search is enabled.
+       */
+      defer?: ToolDeferConfig,
+    }
+  );
+
+  #suppress "@azure-tools/typespec-azure-core/experimental-feature" "Using experimental feature"
+  @@copyProperties(OpenAI.WebSearchPreviewTool,
+    {
+      /**
+       * Deferral settings for this tool when tool search is enabled.
+       */
+      defer?: ToolDeferConfig,
     }
   );
 
@@ -173,6 +232,10 @@ namespace Azure.AI.Projects {
      * The object type, which is always 'bing_grounding'.
      */
     type: "bing_grounding";
+    /**
+     * Deferral settings for this tool when tool search is enabled.
+     */
+    defer?: ToolDeferConfig;
 
     ...ToolNameAndDescriptionExtension;
 
@@ -204,6 +267,10 @@ namespace Azure.AI.Projects {
      * The object type, which is always 'fabric_dataagent_preview'.
      */
     type: "fabric_dataagent_preview";
+    /**
+     * Deferral settings for this tool when tool search is enabled.
+     */
+    defer?: ToolDeferConfig;
 
     ...ToolNameAndDescriptionExtension;
 
@@ -235,6 +302,10 @@ namespace Azure.AI.Projects {
      * The object type, which is always 'sharepoint_grounding_preview'.
      */
     type: "sharepoint_grounding_preview";
+    /**
+     * Deferral settings for this tool when tool search is enabled.
+     */
+    defer?: ToolDeferConfig;
 
     ...ToolNameAndDescriptionExtension;
 
@@ -252,6 +323,10 @@ namespace Azure.AI.Projects {
      * The object type, which is always 'azure_ai_search'.
      */
     type: "azure_ai_search";
+    /**
+     * Deferral settings for this tool when tool search is enabled.
+     */
+    defer?: ToolDeferConfig;
 
     ...ToolNameAndDescriptionExtension;
 
@@ -346,6 +421,10 @@ namespace Azure.AI.Projects {
      * The object type, which is always 'openapi'.
      */
     type: "openapi";
+    /**
+     * Deferral settings for this tool when tool search is enabled.
+     */
+    defer?: ToolDeferConfig;
 
     /**
      * The openapi function definition.
@@ -361,6 +440,10 @@ namespace Azure.AI.Projects {
      * The object type, which is always 'bing_custom_search_preview'.
      */
     type: "bing_custom_search_preview";
+    /**
+     * Deferral settings for this tool when tool search is enabled.
+     */
+    defer?: ToolDeferConfig;
 
     ...ToolNameAndDescriptionExtension;
 
@@ -378,6 +461,10 @@ namespace Azure.AI.Projects {
      * The object type, which is always 'browser_automation_preview'.
      */
     type: "browser_automation_preview";
+    /**
+     * Deferral settings for this tool when tool search is enabled.
+     */
+    defer?: ToolDeferConfig;
 
     ...ToolNameAndDescriptionExtension;
 
@@ -419,6 +506,10 @@ namespace Azure.AI.Projects {
      * The object type, which is always 'browser_automation'.
      */
     type: "azure_function";
+    /**
+     * Deferral settings for this tool when tool search is enabled.
+     */
+    defer?: ToolDeferConfig;
 
     /**
      * The Azure Function Tool definition.
@@ -782,6 +873,10 @@ namespace Azure.AI.Projects {
      * The type of the tool. Always `capture_structured_outputs`.
      */
     type: "capture_structured_outputs";
+    /**
+     * Deferral settings for this tool when tool search is enabled.
+     */
+    defer?: ToolDeferConfig;
 
     /**
      * The structured outputs to capture from the model.
@@ -797,6 +892,10 @@ namespace Azure.AI.Projects {
      * The type of the tool. Always `"a2a_preview`.
      */
     type: "a2a_preview";
+    /**
+     * Deferral settings for this tool when tool search is enabled.
+     */
+    defer?: ToolDeferConfig;
 
     ...ToolNameAndDescriptionExtension;
 
@@ -836,6 +935,10 @@ namespace Azure.AI.Projects {
      * The object type, which is always 'work_iq_preview'.
      */
     type: "work_iq_preview";
+    /**
+     * Deferral settings for this tool when tool search is enabled.
+     */
+    defer?: ToolDeferConfig;
 
     /**
      * The WorkIQ tool parameters.
@@ -851,6 +954,10 @@ namespace Azure.AI.Projects {
      * The type of the tool. Always `memory_search_preview`.
      */
     type: "memory_search_preview";
+    /**
+     * Deferral settings for this tool when tool search is enabled.
+     */
+    defer?: ToolDeferConfig;
 
     ...ToolNameAndDescriptionExtension;
 
@@ -886,6 +993,10 @@ namespace Azure.AI.Projects {
      * The type of the tool. Always `memory_search_preview`.
      */
     type: "memory_search";
+    /**
+     * Deferral settings for this tool when tool search is enabled.
+     */
+    defer?: ToolDeferConfig;
 
     ...ToolNameAndDescriptionExtension;
 
@@ -910,6 +1021,38 @@ namespace Azure.AI.Projects {
      * Time to wait before updating memories after inactivity (seconds). Default 300.
      */
     update_delay?: int32 = 300;
+  }
+
+  /**
+   * Configuration for a tool search tool, specifying which tools are searchable
+   * and how the search index is built.
+   */
+  model ToolSearchConfig {
+    /**
+     * The name of the tool search configuration.
+     */
+    name?: string;
+
+    /**
+     * An optional description of this tool search configuration.
+     */
+    description?: string;
+  }
+
+  /**
+   * A tool for enabling semantic search over the agent's toolbox.
+   * When present, other tools may be deferred and only discoverable via tool_search queries.
+   */
+  model ToolSearchTool extends OpenAI.Tool {
+    /**
+     * The type of the tool. Always `tool_search_preview`.
+     */
+    type: "tool_search_preview";
+
+    /**
+     * The configuration for the tool search tool.
+     */
+    tool_search?: ToolSearchConfig;
   }
 
   alias MemorySearchToolCallItemBase = {
